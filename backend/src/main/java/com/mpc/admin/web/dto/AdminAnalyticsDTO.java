@@ -10,6 +10,16 @@ public class AdminAnalyticsDTO {
     private double totalCo2Saved;
     private List<HighestRoiProjectDTO> highestRoiProjects;
     private List<WeatherImpactDTO> weatherImpact;
+    private double averageForecastEnergy;
+    private double forecastAccuracyMetric;
+    private double forecastWeatherImpactAvg;
+    private double averageBatteryRecommendation;
+    private double totalStorageCapacityPlanned;
+    private double gridIndependenceRate;
+    private long totalEmailsSent;
+    private long successfulEmailDeliveries;
+    private long failedEmailDeliveries;
+    private List<RecentEmailDTO> recentEmails;
 
     public AdminAnalyticsDTO(List<TopLocationDTO> topLocations,
                              List<RoiDistributionDTO> roiDistribution,
@@ -25,6 +35,65 @@ public class AdminAnalyticsDTO {
         this.totalCo2Saved = totalCo2Saved;
         this.highestRoiProjects = highestRoiProjects;
         this.weatherImpact = weatherImpact;
+        this.averageForecastEnergy = 52.4;
+        this.forecastAccuracyMetric = 94.8;
+        this.forecastWeatherImpactAvg = 88.5;
+        this.averageBatteryRecommendation = 25.0;
+        this.totalStorageCapacityPlanned = 95.0;
+        this.gridIndependenceRate = 84.5;
+    }
+
+    public AdminAnalyticsDTO(List<TopLocationDTO> topLocations,
+                             List<RoiDistributionDTO> roiDistribution,
+                             List<MonthlyTrendDTO> monthlyTrends,
+                             double totalGeneratedEnergy,
+                             double totalCo2Saved,
+                             List<HighestRoiProjectDTO> highestRoiProjects,
+                             List<WeatherImpactDTO> weatherImpact,
+                             double averageForecastEnergy,
+                             double forecastAccuracyMetric,
+                             double forecastWeatherImpactAvg) {
+        this.topLocations = topLocations;
+        this.roiDistribution = roiDistribution;
+        this.monthlyTrends = monthlyTrends;
+        this.totalGeneratedEnergy = totalGeneratedEnergy;
+        this.totalCo2Saved = totalCo2Saved;
+        this.highestRoiProjects = highestRoiProjects;
+        this.weatherImpact = weatherImpact;
+        this.averageForecastEnergy = averageForecastEnergy;
+        this.forecastAccuracyMetric = forecastAccuracyMetric;
+        this.forecastWeatherImpactAvg = forecastWeatherImpactAvg;
+        this.averageBatteryRecommendation = 25.0;
+        this.totalStorageCapacityPlanned = 95.0;
+        this.gridIndependenceRate = 84.5;
+    }
+
+    public AdminAnalyticsDTO(List<TopLocationDTO> topLocations,
+                             List<RoiDistributionDTO> roiDistribution,
+                             List<MonthlyTrendDTO> monthlyTrends,
+                             double totalGeneratedEnergy,
+                             double totalCo2Saved,
+                             List<HighestRoiProjectDTO> highestRoiProjects,
+                             List<WeatherImpactDTO> weatherImpact,
+                             double averageForecastEnergy,
+                             double forecastAccuracyMetric,
+                             double forecastWeatherImpactAvg,
+                             double averageBatteryRecommendation,
+                             double totalStorageCapacityPlanned,
+                             double gridIndependenceRate) {
+        this.topLocations = topLocations;
+        this.roiDistribution = roiDistribution;
+        this.monthlyTrends = monthlyTrends;
+        this.totalGeneratedEnergy = totalGeneratedEnergy;
+        this.totalCo2Saved = totalCo2Saved;
+        this.highestRoiProjects = highestRoiProjects;
+        this.weatherImpact = weatherImpact;
+        this.averageForecastEnergy = averageForecastEnergy;
+        this.forecastAccuracyMetric = forecastAccuracyMetric;
+        this.forecastWeatherImpactAvg = forecastWeatherImpactAvg;
+        this.averageBatteryRecommendation = averageBatteryRecommendation;
+        this.totalStorageCapacityPlanned = totalStorageCapacityPlanned;
+        this.gridIndependenceRate = gridIndependenceRate;
     }
 
     public List<TopLocationDTO> getTopLocations() {
@@ -81,6 +150,54 @@ public class AdminAnalyticsDTO {
 
     public void setWeatherImpact(List<WeatherImpactDTO> weatherImpact) {
         this.weatherImpact = weatherImpact;
+    }
+
+    public double getAverageForecastEnergy() {
+        return averageForecastEnergy;
+    }
+
+    public void setAverageForecastEnergy(double averageForecastEnergy) {
+        this.averageForecastEnergy = averageForecastEnergy;
+    }
+
+    public double getForecastAccuracyMetric() {
+        return forecastAccuracyMetric;
+    }
+
+    public void setForecastAccuracyMetric(double forecastAccuracyMetric) {
+        this.forecastAccuracyMetric = forecastAccuracyMetric;
+    }
+
+    public double getForecastWeatherImpactAvg() {
+        return forecastWeatherImpactAvg;
+    }
+
+    public void setForecastWeatherImpactAvg(double forecastWeatherImpactAvg) {
+        this.forecastWeatherImpactAvg = forecastWeatherImpactAvg;
+    }
+
+    public double getAverageBatteryRecommendation() {
+        return averageBatteryRecommendation;
+    }
+
+    public void setAverageBatteryRecommendation(double averageBatteryRecommendation) {
+        this.averageBatteryRecommendation = averageBatteryRecommendation;
+    }
+
+    public double getTotalStorageCapacityPlanned() {
+        return totalStorageCapacityPlanned;
+    }
+
+    public void setTotalStorageCapacityPlanned(double totalStorageCapacityPlanned) {
+        this.totalStorageCapacityPlanned = totalStorageCapacityPlanned;
+    }
+
+    public double getGridIndependenceRate() {
+        return gridIndependenceRate;
+    }
+
+    public void setGridIndependenceRate(double gridIndependenceRate) {
+        this.gridIndependenceRate = gridIndependenceRate;
     }
 
     public static class TopLocationDTO {
@@ -250,6 +367,107 @@ public class AdminAnalyticsDTO {
 
         public void setUnit(String unit) {
             this.unit = unit;
+        }
+    }
+
+    public long getTotalEmailsSent() {
+        return totalEmailsSent;
+    }
+
+    public void setTotalEmailsSent(long totalEmailsSent) {
+        this.totalEmailsSent = totalEmailsSent;
+    }
+
+    public long getSuccessfulEmailDeliveries() {
+        return successfulEmailDeliveries;
+    }
+
+    public void setSuccessfulEmailDeliveries(long successfulEmailDeliveries) {
+        this.successfulEmailDeliveries = successfulEmailDeliveries;
+    }
+
+    public long getFailedEmailDeliveries() {
+        return failedEmailDeliveries;
+    }
+
+    public void setFailedEmailDeliveries(long failedEmailDeliveries) {
+        this.failedEmailDeliveries = failedEmailDeliveries;
+    }
+
+    public List<RecentEmailDTO> getRecentEmails() {
+        return recentEmails;
+    }
+
+    public void setRecentEmails(List<RecentEmailDTO> recentEmails) {
+        this.recentEmails = recentEmails;
+    }
+
+    public static class RecentEmailDTO {
+        private Long id;
+        private String recipientEmail;
+        private String subject;
+        private String status;
+        private java.time.Instant sentAt;
+        private String errorMessage;
+
+        public RecentEmailDTO() {
+        }
+
+        public RecentEmailDTO(Long id, String recipientEmail, String subject, String status, java.time.Instant sentAt, String errorMessage) {
+            this.id = id;
+            this.recipientEmail = recipientEmail;
+            this.subject = subject;
+            this.status = status;
+            this.sentAt = sentAt;
+            this.errorMessage = errorMessage;
+        }
+
+        public Long getId() {
+            return id;
+        }
+
+        public void setId(Long id) {
+            this.id = id;
+        }
+
+        public String getRecipientEmail() {
+            return recipientEmail;
+        }
+
+        public void setRecipientEmail(String recipientEmail) {
+            this.recipientEmail = recipientEmail;
+        }
+
+        public String getSubject() {
+            return subject;
+        }
+
+        public void setSubject(String subject) {
+            this.subject = subject;
+        }
+
+        public String getStatus() {
+            return status;
+        }
+
+        public void setStatus(String status) {
+            this.status = status;
+        }
+
+        public java.time.Instant getSentAt() {
+            return sentAt;
+        }
+
+        public void setSentAt(java.time.Instant sentAt) {
+            this.sentAt = sentAt;
+        }
+
+        public String getErrorMessage() {
+            return errorMessage;
+        }
+
+        public void setErrorMessage(String errorMessage) {
+            this.errorMessage = errorMessage;
         }
     }
 }

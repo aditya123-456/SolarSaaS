@@ -1,3 +1,5 @@
+import { apiUrl } from './apiConfig';
+
 const getApiError = async (response) => {
   try {
     const body = await response.json();
@@ -33,7 +35,7 @@ const getAuthHeaders = () => {
 
 export const analysisApiService = {
   async saveAnalysis(analysis) {
-    const response = await fetch('/api/analysis', {
+    const response = await fetch(apiUrl('/api/analysis'), {
       method: 'POST',
       headers: getAuthHeaders(),
       body: JSON.stringify(analysis),
@@ -47,7 +49,7 @@ export const analysisApiService = {
   },
 
   async getAnalyses() {
-    const response = await fetch('/api/analysis', {
+    const response = await fetch(apiUrl('/api/analysis'), {
       headers: getAuthHeaders(),
     });
 
@@ -59,7 +61,7 @@ export const analysisApiService = {
   },
 
   async getAnalysisById(id) {
-    const response = await fetch(`/api/analysis/${id}`, {
+    const response = await fetch(apiUrl(`/api/analysis/${id}`), {
       headers: getAuthHeaders(),
     });
 
@@ -68,5 +70,54 @@ export const analysisApiService = {
     }
 
     return response.json();
+  },
+
+  async getLatestAnalysis() {
+    try {
+      const response = await fetch(apiUrl('/api/analysis/latest'), {
+        headers: getAuthHeaders(),
+      });
+
+      if (response.status === 204) {
+        return null;
+      }
+
+      if (!response.ok) {
+        throw new Error(await getApiError(response));
+      }
+
+      return await response.json();
+    } catch {
+      try {
+        const list = await analysisApiService.getAnalyses();
+        return list && list.length > 0 ? list[0] : null;
+      } catch {
+        return null;
+      }
+    }
+  },
+
+  async duplicateAnalysis(id) {
+    const response = await fetch(apiUrl(`/api/analysis/${id}/duplicate`), {
+      method: 'POST',
+      headers: getAuthHeaders(),
+    });
+
+    if (!response.ok) {
+      throw new Error(await getApiError(response));
+    }
+
+    return response.json();
+  },
+
+  async deleteAnalysis(id) {
+    const response = await fetch(apiUrl(`/api/analysis/${id}`), {
+      method: 'DELETE',
+      headers: getAuthHeaders(),
+    });
+
+    if (!response.ok) {
+      throw new Error(await getApiError(response));
+    }
   },
 };

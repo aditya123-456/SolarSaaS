@@ -5,6 +5,7 @@ import { Table } from '../components/ui/Table';
 import { analysisApiService } from '../services/analysisApiService';
 import { reportApiService } from '../services/reportApiService';
 import { downloadAnalysisReport } from '../services/reportService';
+import ForecastSection from '../components/forecast/ForecastSection';
 
 const formatNumber = (value, digits = 0) =>
   new Intl.NumberFormat('en-IN', {
@@ -64,21 +65,33 @@ const AnalysisHistory = () => {
     }
   };
 
+  const [successMsg, setSuccessMsg] = useState('');
+
   const handleGenerateReport = async (analysis) => {
     setGeneratingReportId(analysis.id);
     setError('');
+    setSuccessMsg('');
 
     try {
       // Trigger PDF download
       downloadAnalysisReport(analysis);
 
       // Save report record to backend
-      await reportApiService.saveReport({
+      const reportRes = await reportApiService.saveReport({
         reportName: `Solar Feasibility - ${analysis.locationName || 'Rooftop'}`,
         reportType: 'PDF',
         analysisId: analysis.id,
         filePath: `/reports/solar_feasibility_${analysis.id}.pdf`,
       });
+
+      let notice = 'Report saved to database successfully!';
+      if (reportRes?.emailStatus === 'SENT') {
+        notice = 'Report saved & dispatched to your email!';
+      } else if (reportRes?.emailStatus === 'FAILED') {
+        notice = 'Report saved (Auto-email notice: SMTP credentials not configured)';
+      }
+      setSuccessMsg(notice);
+      setTimeout(() => setSuccessMsg(''), 5000);
     } catch (reportError) {
       setError(reportError.message || 'Failed to save report to backend');
     } finally {
@@ -153,6 +166,12 @@ const AnalysisHistory = () => {
         </div>
       )}
 
+      {successMsg && (
+        <div className="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-700">
+          {successMsg}
+        </div>
+      )}
+
       <Card className="p-0">
         <CardHeader title="Saved Analyses" className="mb-0 p-6" />
         {isLoading ? (
@@ -204,6 +223,11 @@ const AnalysisHistory = () => {
                 {formatNumber(selectedAnalysis.monthlyGeneration)} kWh
               </p>
             </div>
+          </div>
+
+          {/* 10-Day Forecast Snapshot */}
+          <div className="mt-8 pt-6 border-t border-slate-200">
+            <ForecastSection analysis={selectedAnalysis} />
           </div>
         </Card>
       )}

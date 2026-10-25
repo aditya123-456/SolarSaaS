@@ -4,11 +4,14 @@ import {
   LayoutDashboard, 
   Map as MapIcon, 
   BarChart3, 
-  History,
   FileText, 
   Settings,
   Sun,
   ShieldCheck,
+  Layers,
+  FileCheck,
+  Cpu,
+  Box,
 } from 'lucide-react';
 import { useAuth } from '../context/useAuth';
 
@@ -21,7 +24,12 @@ const Sidebar = () => {
     { to: '/dashboard', icon: <LayoutDashboard size={20} />, label: 'Dashboard' },
     { to: '/map', icon: <MapIcon size={20} />, label: 'Map Selection' },
     { to: '/analysis', icon: <BarChart3 size={20} />, label: 'Analysis' },
-    { to: '/analysis-history', icon: <History size={20} />, label: 'History' },
+    { to: '/solar-potential', icon: <Sun size={20} />, label: 'Solar Potential' },
+    { to: '/panel-optimizer', icon: <Cpu size={20} />, label: 'AI Panel Optimizer' },
+    { to: '/model-3d', icon: <Box size={20} />, label: '3D Model View', badge: 'NEW' },
+
+    { to: '/my-analyses', icon: <Layers size={20} />, label: 'History' },
+    { to: '/my-proposals', icon: <FileCheck size={20} />, label: 'My Proposals' },
     { to: '/reports', icon: <FileText size={20} />, label: 'Reports' },
     { to: '/settings', icon: <Settings size={20} />, label: 'Settings' },
   ];

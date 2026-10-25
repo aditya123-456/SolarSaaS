@@ -32,9 +32,9 @@ public class SecurityConfig {
                 .exceptionHandling(exception -> exception.authenticationEntryPoint((request, response, authException) ->
                     response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized")))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/auth/**", "/api/solar/building-insights").permitAll()
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/api/analysis/**", "/api/reports/**", "/api/financial/**").authenticated()
+                        .requestMatchers("/api/analysis/**", "/api/reports/**", "/api/financial/**", "/api/proposals/**", "/api/solar/**", "/api/ai/**", "/api/panel-optimizer/**").authenticated()
                         .requestMatchers("/h2-console/**").permitAll()
                         .anyRequest().permitAll())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
@@ -44,8 +44,14 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:5173", "http://localhost:8081", "http://localhost:3000"));
-        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
+        configuration.setAllowedOrigins(List.of(
+                "http://localhost",
+                "https://localhost",
+                "capacitor://localhost",
+                "http://localhost:5173",
+                "http://localhost:8081",
+                "http://localhost:3000"));
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setExposedHeaders(List.of("Authorization", "Content-Type"));
         configuration.setAllowCredentials(true);
